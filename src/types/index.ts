@@ -104,3 +104,127 @@ export interface Alert {
   timestamp: Date;
   dismissed: boolean;
 }
+
+// New types for SaaS platform
+export interface SocialMediaAccount {
+  id: string;
+  platform: 'Instagram' | 'TikTok' | 'LinkedIn' | 'Facebook';
+  username: string;
+  connected: boolean;
+  followers: number;
+  lastSync: Date;
+}
+
+export interface ContentPost {
+  id: string;
+  platform: string;
+  content: string;
+  mediaUrl?: string;
+  hashtags: string[];
+  scheduledDate: Date;
+  status: 'draft' | 'scheduled' | 'published' | 'failed';
+  engagement?: {
+    likes: number;
+    comments: number;
+    shares: number;
+    reach: number;
+  };
+}
+
+export interface CampaignTemplate {
+  id: string;
+  name: string;
+  platform: 'Meta Ads' | 'Google Ads';
+  type: 'conversion' | 'traffic' | 'awareness' | 'lead_generation';
+  structure: {
+    adSets?: AdSetTemplate[];
+    keywords?: string[];
+    audiences?: AudienceTemplate[];
+    creatives?: CreativeTemplate[];
+  };
+  budget: number;
+  objective: string;
+}
+
+export interface AdSetTemplate {
+  name: string;
+  budget: number;
+  targeting: AudienceTemplate;
+  placements: string[];
+}
+
+export interface AudienceTemplate {
+  name: string;
+  demographics: {
+    ageMin: number;
+    ageMax: number;
+    genders: string[];
+    locations: string[];
+  };
+  interests: string[];
+  behaviors: string[];
+  customAudiences?: string[];
+}
+
+export interface CreativeTemplate {
+  type: 'image' | 'video' | 'carousel' | 'text';
+  headline: string;
+  description: string;
+  callToAction: string;
+  mediaUrl?: string;
+}
+
+export interface StrategicPlan {
+  id: string;
+  clientName: string;
+  industry: string;
+  budget: number;
+  objectives: string[];
+  recommendations: {
+    mediaStrategy: string;
+    contentStrategy: string;
+    budgetAllocation: {
+      metaAds: number;
+      googleAds: number;
+      content: number;
+    };
+    timeline: string;
+  };
+  createdAt: Date;
+}
+
+export interface QuickAction {
+  id: string;
+  type: 'pause_campaign' | 'increase_budget' | 'duplicate_campaign' | 'optimize_targeting';
+  campaignId: string;
+  campaignName: string;
+  description: string;
+  impact: 'low' | 'medium' | 'high';
+  estimatedResult: string;
+}
+
+export interface APIConnection {
+  platform: 'Meta Ads' | 'Google Ads' | 'Instagram' | 'TikTok' | 'LinkedIn';
+  connected: boolean;
+  lastSync: Date;
+  status: 'active' | 'error' | 'expired';
+  permissions: string[];
+}
+
+export interface ContentCalendar {
+  id: string;
+  month: number;
+  year: number;
+  posts: ContentPost[];
+  suggestions: AIContentSuggestion[];
+}
+
+export interface AIContentSuggestion {
+  id: string;
+  platform: string;
+  content: string;
+  hashtags: string[];
+  bestTime: string;
+  reasoning: string;
+  confidence: number;
+}

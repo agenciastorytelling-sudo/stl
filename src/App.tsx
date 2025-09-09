@@ -14,10 +14,15 @@ import { ForecastChart } from './components/Analytics/ForecastChart';
 import { AutomatedReports } from './components/Reports/AutomatedReports';
 import { AIAnalysisModal } from './components/AI/AIAnalysisModal';
 import { AdminPanel } from './components/Settings/AdminPanel';
+import { CampaignManager } from './components/CampaignManager/CampaignManager';
+import { ContentManager } from './components/Content/ContentManager';
+import { AITools } from './components/AI/AITools';
+import { StrategicPlanning } from './components/Strategic/StrategicPlanning';
+import { IntegrationsPanel } from './components/Integrations/IntegrationsPanel';
 import { useDashboard } from './hooks/useDashboard';
 import { generateAIAnalysis } from './services/aiAnalysis';
 import { Users, DollarSign, TrendingUp } from 'lucide-react';
-import type { Campaign, AIAnalysis, Notification, Alert } from './types';
+import type { Campaign, AIAnalysis, Notification, Alert, QuickAction } from './types';
 
 function App() {
   const [activeSection, setActiveSection] = React.useState('dashboard');
@@ -37,7 +42,10 @@ function App() {
     setPeriod,
     selectedWidgets,
     availableWidgets,
-    toggleWidget
+    toggleWidget,
+    quickActions,
+    contentCalendar,
+    socialAccounts
   } = useDashboard();
 
   const handleDrillDown = () => {
@@ -68,6 +76,16 @@ function App() {
   const handleDismissAlert = (id: string) => {
     // In a real app, this would update the backend
     console.log('Dismiss alert:', id);
+  };
+
+  const handleExecuteQuickAction = (action: QuickAction) => {
+    console.log('Executing quick action:', action);
+    // In a real app, this would call the appropriate API
+  };
+
+  const handleSchedulePost = (post: any) => {
+    console.log('Scheduling post:', post);
+    // In a real app, this would call the social media API
   };
 
   const handleViewCampaign = (campaignId: string) => {
@@ -158,6 +176,14 @@ function App() {
     switch (activeSection) {
       case 'dashboard':
         return renderDashboard();
+      case 'campaigns-manager':
+        return (
+          <CampaignManager 
+            campaigns={campaigns}
+            quickActions={quickActions}
+            onExecuteAction={handleExecuteQuickAction}
+          />
+        );
       case 'campaigns':
         return (
           <CampaignTable 
@@ -167,6 +193,18 @@ function App() {
         );
       case 'leads':
         return <LeadsTable leads={leads} />;
+      case 'content':
+        return (
+          <ContentManager 
+            calendar={contentCalendar}
+            socialAccounts={socialAccounts}
+            onSchedulePost={handleSchedulePost}
+          />
+        );
+      case 'ai-tools':
+        return <AITools />;
+      case 'strategic-planning':
+        return <StrategicPlanning />;
       case 'analytics':
         return (
           <div className="space-y-8">
@@ -178,6 +216,8 @@ function App() {
         );
       case 'reports':
         return <AutomatedReports />;
+      case 'integrations':
+        return <IntegrationsPanel />;
       case 'settings':
         return <AdminPanel />;
       default:

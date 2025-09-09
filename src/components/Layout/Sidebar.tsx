@@ -9,10 +9,15 @@ interface SidebarProps {
 export function Sidebar({ activeSection, setActiveSection }: SidebarProps) {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
+    { id: 'campaigns-manager', label: 'Gerenciar Campanhas', icon: Target },
     { id: 'campaigns', label: 'Campanhas', icon: Target },
     { id: 'leads', label: 'Leads', icon: Users },
+    { id: 'content', label: 'Conteúdo', icon: FileText },
+    { id: 'ai-tools', label: 'Ferramentas IA', icon: TrendingUp },
+    { id: 'strategic-planning', label: 'Planejamento', icon: Target },
     { id: 'analytics', label: 'Análises', icon: TrendingUp },
     { id: 'reports', label: 'Relatórios', icon: FileText },
+    { id: 'integrations', label: 'Integrações', icon: Settings },
     { id: 'settings', label: 'Configurações', icon: Settings }
   ];
 

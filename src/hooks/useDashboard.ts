@@ -214,6 +214,75 @@ export function useDashboard() {
 
   const { metrics, campaigns, leads, notifications, goals, competitors, forecasts, alerts } = generateMockData();
 
+  // Mock data for new features
+  const quickActions: QuickAction[] = [
+    {
+      id: '1',
+      type: 'pause_campaign',
+      campaignId: '1',
+      campaignName: 'Campanha Black Friday - Meta',
+      description: 'CTR caiu 40% nas últimas 6 horas',
+      impact: 'high',
+      estimatedResult: 'Economia de R$ 200-300 em gastos desnecessários'
+    },
+    {
+      id: '2',
+      type: 'increase_budget',
+      campaignId: '3',
+      campaignName: 'Liquidação Janeiro - Meta',
+      description: 'CPL 30% abaixo da meta, oportunidade de escala',
+      impact: 'medium',
+      estimatedResult: '+15-20 leads adicionais com mesmo CPL'
+    }
+  ];
+
+  const contentCalendar: ContentCalendar = {
+    id: '1',
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
+    posts: [
+      {
+        id: '1',
+        platform: 'Instagram',
+        content: 'Dica do dia: Como otimizar suas campanhas de Meta Ads para melhor performance! 🚀',
+        hashtags: ['marketing', 'metaads', 'dicas', 'performance'],
+        scheduledDate: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        status: 'scheduled'
+      }
+    ],
+    suggestions: [
+      {
+        id: '1',
+        platform: 'Instagram',
+        content: 'Você sabia que campanhas com vídeos têm 30% mais engajamento? Teste agora! 📹✨',
+        hashtags: ['video', 'marketing', 'engajamento', 'dicas'],
+        bestTime: '18:00',
+        reasoning: 'Baseado no histórico de engajamento da sua audiência',
+        confidence: 85
+      },
+      {
+        id: '2',
+        platform: 'LinkedIn',
+        content: 'Case de sucesso: Como reduzimos o CPL em 45% usando segmentação inteligente.',
+        hashtags: ['casesucesso', 'cpl', 'segmentacao', 'resultados'],
+        bestTime: '09:00',
+        reasoning: 'Horário de maior atividade profissional',
+        confidence: 92
+      }
+    ]
+  };
+
+  const socialAccounts: SocialMediaAccount[] = [
+    {
+      id: '1',
+      platform: 'Instagram',
+      username: '@minhaagencia',
+      connected: true,
+      followers: 15420,
+      lastSync: new Date(Date.now() - 10 * 60 * 1000)
+    }
+  ];
+
   const availableWidgets = [
     { id: 'followers', label: 'Seguidores', value: metrics.followers.toLocaleString() },
     { id: 'engagement', label: 'Engajamento', value: `${metrics.engagement}%` },
@@ -250,6 +319,9 @@ export function useDashboard() {
     selectedWidgets,
     availableWidgets,
     toggleWidget,
-    isLoading
+    isLoading,
+    quickActions,
+    contentCalendar,
+    socialAccounts
   };
 }
